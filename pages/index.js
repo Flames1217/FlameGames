@@ -190,8 +190,8 @@ export default function Home({ initialGames }) {
   return (
     <>
       <Head>
-        <title>FlameGames — 精选游戏导航</title>
-        <meta name="description" content="精心筛选的游戏合集，随时上手，完全免费" />
+        <title>FlameGames - 浏览器里的休闲游戏合集</title>
+        <meta name="description" content="一个随时随地都能打开玩的个人游戏合集，无需安装，打开浏览器就能开始。" />
       </Head>
 
       {/* Background */}
@@ -205,10 +205,10 @@ export default function Home({ initialGames }) {
       <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, padding: '16px 0', borderBottom: '1px solid var(--border)', background: 'rgba(8,8,14,0.85)', backdropFilter: 'blur(20px)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ fontSize: 17, fontWeight: 700, letterSpacing: '-0.03em' }}>
-            Game<span style={{ color: 'var(--purple2)' }}>Vault</span>
+            Flame<span style={{ color: 'var(--purple2)' }}>Games</span>
           </div>
           <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
-            <span style={{ fontSize: 12, color: 'var(--text3)' }}>{games.filter(g => g.status === 'live').length} games live</span>
+            <span style={{ fontSize: 12, color: 'var(--text3)' }}>{games.filter(g => g.status === 'live').length} 款游戏可玩</span>
           </div>
         </div>
       </nav>
@@ -219,20 +219,21 @@ export default function Home({ initialGames }) {
           <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 28px' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '5px 14px', border: '1px solid rgba(139,92,246,0.3)', borderRadius: 999, background: 'rgba(139,92,246,0.08)', fontSize: 12, color: 'var(--purple2)', fontWeight: 500, marginBottom: 28 }}>
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--cyan)', display: 'inline-block' }} />
-              精选 · 持续更新中
+              随时打开，随手玩一局
             </div>
             <h1 style={{ fontSize: 'clamp(38px,6vw,68px)', fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.04em', marginBottom: 20 }}>
-              发现值得玩的<br />
-              <span className="gradient-text">好游戏</span>
+              打开浏览器，<br />
+              <span className="gradient-text">玩点有趣的</span>
             </h1>
             <p style={{ fontSize: 17, color: 'var(--text2)', maxWidth: 480, margin: '0 auto 40px', lineHeight: 1.75 }}>
-              精心筛选的游戏合集，覆盖 3D 探索、AI 对弈等多种类型，无需安装，完全免费。
+              FlameGames 是我的个人游戏合集。这里放着一些轻松、有趣、打开就能玩的小游戏，
+              不用安装，不挑设备，想放松几分钟时就来玩一会儿。
             </p>
             <div style={{ display: 'flex', gap: 36, justifyContent: 'center', paddingTop: 40, borderTop: '1px solid var(--border)' }}>
               {[
-                { num: games.filter(g => g.status === 'live').length, lbl: '上线游戏' },
-                { num: '∞', lbl: '持续新增' },
-                { num: 'FREE', lbl: '永久免费' },
+                { num: games.filter(g => g.status === 'live').length, lbl: '当前可玩' },
+                { num: '随时', lbl: '浏览器即玩' },
+                { num: 'FREE', lbl: '免费体验' },
               ].map(s => (
                 <div key={s.lbl} style={{ textAlign: 'center' }}>
                   <span style={{ fontSize: 26, fontWeight: 700, letterSpacing: '-0.02em', background: 'linear-gradient(135deg,#fff,var(--purple2))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', display: 'block' }}>{s.num}</span>
@@ -247,12 +248,12 @@ export default function Home({ initialGames }) {
         <section style={{ padding: '40px 0 100px' }}>
           <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 28px' }}>
             <div style={{ marginBottom: 48, textAlign: 'center' }}>
-              <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--purple2)', marginBottom: 10 }}>// AVAILABLE NOW</div>
-              <h2 style={{ fontSize: 'clamp(24px,3.5vw,40px)', fontWeight: 800, letterSpacing: '-0.03em' }}>精选游戏</h2>
+              <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--purple2)', marginBottom: 10 }}>// PLAY NOW</div>
+              <h2 style={{ fontSize: 'clamp(24px,3.5vw,40px)', fontWeight: 800, letterSpacing: '-0.03em' }}>现在可以玩的游戏</h2>
             </div>
 
             {games.length === 0 ? (
-              <p style={{ textAlign: 'center', color: 'var(--text3)' }}>暂无游戏，管理员添加后自动显示。</p>
+              <p style={{ textAlign: 'center', color: 'var(--text3)' }}>暂时还没有游戏，上线后会显示在这里。</p>
             ) : (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(300px,1fr))', gap: 20 }}>
                 {games.map(game => <GameCard key={game.id} game={game} />)}
@@ -265,8 +266,8 @@ export default function Home({ initialGames }) {
       {/* Footer */}
       <footer style={{ borderTop: '1px solid var(--border)', padding: '28px 0', position: 'relative', zIndex: 1 }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 28px', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-          <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--text2)' }}>Game<span style={{ color: 'var(--purple2)' }}>Vault</span></span>
-          <span style={{ fontSize: 12, color: 'var(--text3)' }}>games.viper3.top · 精选游戏导航</span>
+          <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--text2)' }}>Flame<span style={{ color: 'var(--purple2)' }}>Games</span></span>
+          <span style={{ fontSize: 12, color: 'var(--text3)' }}>games.viper3.top · 个人休闲游戏合集</span>
         </div>
       </footer>
     </>

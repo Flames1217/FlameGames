@@ -1,4 +1,4 @@
-import { sql } from '../../lib/db';
+import { sql } from '../../../lib/db';
 
 function checkAuth(req) {
   return req.headers['x-admin-password'] === process.env.ADMIN_PASSWORD;

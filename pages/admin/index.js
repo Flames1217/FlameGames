@@ -244,7 +244,7 @@ export default function Admin() {
         <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)', fontFamily: 'Sora,sans-serif' }}>
           <div style={{ width: 360, background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 20, padding: 40 }}>
             <div style={{ textAlign: 'center', marginBottom: 32 }}>
-              <div style={{ fontSize: 28, fontWeight: 800, marginBottom: 6 }}>Game<span style={{ color: 'var(--purple2)' }}>Vault</span></div>
+              <div style={{ fontSize: 28, fontWeight: 800, marginBottom: 6 }}>Flame<span style={{ color: 'var(--purple2)' }}>Games</span></div>
               <div style={{ fontSize: 13, color: 'var(--text3)' }}>管理员登录</div>
             </div>
             <Field label="管理员密码">
@@ -287,7 +287,7 @@ export default function Admin() {
         <div style={{ borderBottom: '1px solid var(--border)', padding: '18px 0', background: 'rgba(8,8,14,0.95)', backdropFilter: 'blur(12px)', position: 'sticky', top: 0, zIndex: 50 }}>
           <div style={{ maxWidth: 900, margin: '0 auto', padding: '0 28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-              <span style={{ fontSize: 16, fontWeight: 700 }}>Game<span style={{ color: 'var(--purple2)' }}>Vault</span></span>
+              <span style={{ fontSize: 16, fontWeight: 700 }}>Flame<span style={{ color: 'var(--purple2)' }}>Games</span></span>
               <span style={{ fontSize: 11, padding: '3px 10px', borderRadius: 999, background: 'rgba(139,92,246,0.1)', color: 'var(--purple2)', fontWeight: 600 }}>ADMIN</span>
             </div>
             <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
