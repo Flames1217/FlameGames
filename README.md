@@ -1,89 +1,54 @@
-# FlameGames — 部署指南
+# FlameGames 部署与使用说明
 
-## 技术栈
-- **前端/后端**: Next.js 14（Vercel 部署）
-- **数据库**: Neon PostgreSQL（免费版）
-- **认证**: 环境变量密码
+FlameGames 是一个个人休闲游戏合集，目标是让用户随时随地打开浏览器就能玩。
 
----
+## 项目技术栈
+- 前后端：Next.js 14
+- 数据库：Neon PostgreSQL
+- 部署平台：Vercel
+- 管理后台认证：环境变量密码
 
-## 第一步：创建 Neon 数据库
+## 一、准备数据库（Neon）
+1. 打开 `https://neon.tech` 并创建项目。
+2. 进入 SQL Editor，执行仓库中的 `init.sql`。
+3. 在 Connection Details 里复制 `Pooled connection` 连接串。
 
-1. 打开 https://neon.tech，注册/登录
-2. 点击 **New Project**，区域选 **Asia Pacific (Singapore)** 延迟最低
-3. 创建完成后，进入 **SQL Editor**
-4. 粘贴 `init.sql` 里的内容，点击 **Run** 初始化表结构
+## 二、配置环境变量
+在本地 `.env.local` 和 Vercel 环境变量中都要配置：
 
-5. 回到 Dashboard，点击 **Connection Details**
-6. 选 **Pooled connection**，复制 **Connection string**
-   格式如：`postgres://user:pass@ep-xxx.neon.tech/neondb?sslmode=require`
+| Key | 说明 |
+| --- | --- |
+| `DATABASE_URL` | Neon 的连接字符串 |
+| `ADMIN_PASSWORD` | 后台登录密码 |
 
----
+## 三、部署到 Vercel
+1. 把仓库推送到 GitHub。
+2. 在 Vercel 导入该仓库并部署。
+3. 在 Vercel 项目中配置好环境变量后重新部署。
 
-## 第二步：部署到 Vercel
+## 四、域名与子路径
+- 主站：`games.viper3.top` 指向本项目。
+- 子路径反向代理：
+  - `/wolfcha` 和 `/wolfcha/*` 代理到 `wolfcha.vercel.app`
+  - `/drysland` 和 `/drysland/*` 代理到 `drysland.vercel.app`
 
-1. 把这个文件夹推送到 GitHub（新建一个 repo）
+> 当前仓库已包含 `vercel.json` 与 `next.config.js` 的 rewrite 配置。
 
+## 五、本地运行
 ```bash
-git init
-git add .
-git commit -m "init"
-git remote add origin https://github.com/你的用户名/FlameGames.git
-git push -u origin main
+pnpm install
+pnpm dev
 ```
+访问：`http://localhost:3000`
 
-2. 打开 https://vercel.com，点击 **Add New Project**
-3. 导入刚才创建的 GitHub repo
-4. 在 **Environment Variables** 里添加两个变量：
+## 页面说明
+- `/`：游戏主页（公开）
+- `/games/[slug]`：游戏详情页（iframe 承载）
+- `/admin`：管理后台（密码登录）
 
-| Key | Value |
-|-----|-------|
-| `DATABASE_URL` | 上一步复制的 Neon 连接字符串 |
-| `ADMIN_PASSWORD` | 你设置的管理员密码 |
-
-5. 点击 **Deploy**，等待 1-2 分钟
-
----
-
-## 第三步：绑定自定义域名
-
-1. Vercel 控制台 → 你的项目 → **Settings → Domains**
-2. 添加 `games.viper3.top`
-3. 去腾讯云 DNS，添加一条 CNAME 记录：
-   - 主机记录：`games`
-   - 记录值：`cname.vercel-dns.com`
-
----
-
-## 使用说明
-
-| 路径 | 说明 |
-|------|------|
-| `games.viper3.top/` | 游戏展示页（公开） |
-| `games.viper3.top/admin` | 管理后台（需密码） |
-
-### 管理后台功能
-- ✅ 添加游戏（名称、描述、链接、标签、状态、颜色）
-- ✅ 编辑游戏
-- ✅ 删除游戏
-- ✅ 上下调整排序
-- ✅ 切换上线/即将上线状态
-
-前端页面在每次访问时从数据库读取最新数据，**后台改动立即生效**。
-
----
-
-## 本地开发
-
-```bash
-# 1. 安装依赖
-npm install
-
-# 2. 创建 .env.local（参考 .env.example）
-cp .env.example .env.local
-# 编辑 .env.local，填入 DATABASE_URL 和 ADMIN_PASSWORD
-
-# 3. 启动
-npm run dev
-# 打开 http://localhost:3000
-```
+## 管理后台支持
+- 新增游戏
+- 编辑游戏
+- 删除游戏
+- 上下移动排序
+- 切换 `live/soon` 状态
