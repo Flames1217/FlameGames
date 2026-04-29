@@ -1,19 +1,12 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 
-const COLOR_OPTIONS = [
-  { value: 'purple', label: '紫色', hex: '#8B5CF6' },
-  { value: 'cyan',   label: '青色', hex: '#22D3EE' },
-  { value: 'pink',   label: '粉色', hex: '#EC4899' },
-  { value: 'green',  label: '绿色', hex: '#10B981' },
-];
-
 const STATUS_OPTIONS = [
   { value: 'live', label: '● 已上线' },
   { value: 'soon', label: '○ 即将上线' },
 ];
 
-const EMPTY_FORM = { name: '', description: '', url: '', tags: '', status: 'live', color: 'purple' };
+const EMPTY_FORM = { name: '', description: '', url: '', tags: '', status: 'live', icon_url: '', cover_url: '' };
 
 function apiHeaders(password) {
   return { 'Content-Type': 'application/json', 'x-admin-password': password };
@@ -76,32 +69,27 @@ function GameForm({ initial = EMPTY_FORM, onSave, onCancel, loading }) {
           onFocus={e => e.target.style.borderColor = 'var(--purple)'} onBlur={e => e.target.style.borderColor = 'var(--border)'}
           placeholder="https://..." />
       </Field>
+      <Field label="图标链接（icon_url）">
+        <input style={inputStyle} value={form.icon_url || ''} onChange={e => set('icon_url', e.target.value)}
+          onFocus={e => e.target.style.borderColor = 'var(--purple)'} onBlur={e => e.target.style.borderColor = 'var(--border)'}
+          placeholder="https://.../icon.png" />
+      </Field>
+      <Field label="封面链接（cover_url）">
+        <input style={inputStyle} value={form.cover_url || ''} onChange={e => set('cover_url', e.target.value)}
+          onFocus={e => e.target.style.borderColor = 'var(--purple)'} onBlur={e => e.target.style.borderColor = 'var(--border)'}
+          placeholder="https://.../cover.jpg" />
+      </Field>
       <Field label="标签（逗号分隔）">
         <input style={inputStyle} value={form.tags} onChange={e => set('tags', e.target.value)}
           onFocus={e => e.target.style.borderColor = 'var(--purple)'} onBlur={e => e.target.style.borderColor = 'var(--border)'}
           placeholder="WebGL, 3D, 探索" />
       </Field>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 16 }}>
         <Field label="状态">
           <select style={{ ...inputStyle, cursor: 'pointer' }} value={form.status} onChange={e => set('status', e.target.value)}>
             {STATUS_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
           </select>
         </Field>
-        <Field label="主题色">
-          <select style={{ ...inputStyle, cursor: 'pointer' }} value={form.color} onChange={e => set('color', e.target.value)}>
-            {COLOR_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-          </select>
-        </Field>
-      </div>
-      {/* Color preview */}
-      <div style={{ display: 'flex', gap: 8, marginBottom: 22 }}>
-        {COLOR_OPTIONS.map(o => (
-          <div key={o.value} onClick={() => set('color', o.value)} style={{
-            width: 28, height: 28, borderRadius: 8, background: o.hex, cursor: 'pointer',
-            border: form.color === o.value ? '2px solid white' : '2px solid transparent',
-            transition: 'border-color 0.2s', opacity: form.color === o.value ? 1 : 0.4,
-          }} />
-        ))}
       </div>
       <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
         <button onClick={onCancel} style={{ padding: '9px 20px', background: 'transparent', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--text2)', fontSize: 13, cursor: 'pointer', fontFamily: 'Sora,sans-serif' }}>取消</button>
@@ -117,13 +105,16 @@ function GameForm({ initial = EMPTY_FORM, onSave, onCancel, loading }) {
 /* ── Row ── */
 function GameRow({ game, onEdit, onDelete, onMove, isFirst, isLast }) {
   const [deleting, setDeleting] = useState(false);
-  const color = COLOR_OPTIONS.find(c => c.value === game.color) || COLOR_OPTIONS[0];
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 18px', background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 12, marginBottom: 10, transition: 'border-color 0.2s' }}
       onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(139,92,246,0.25)'}
       onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}>
-      {/* Color dot */}
-      <div style={{ width: 10, height: 10, borderRadius: '50%', background: color.hex, flexShrink: 0 }} />
+      {/* Icon */}
+      <div style={{ width: 28, height: 28, borderRadius: 8, overflow: 'hidden', background: 'rgba(255,255,255,0.08)', flexShrink: 0 }}>
+        {game.icon_url ? (
+          <img src={game.icon_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+        ) : null}
+      </div>
       {/* Info */}
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>

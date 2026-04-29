@@ -1,112 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
-const COLOR_MAP = {
-  purple: { border: 'rgba(139,92,246,0.4)', glow: 'rgba(139,92,246,0.15)', tag: { bg: 'rgba(139,92,246,0.12)', color: '#A78BFA', border: 'rgba(139,92,246,0.2)' }, btn: { bg: '#8B5CF6', color: '#fff' }, thumb: 'linear-gradient(135deg,#1a1030,#0d0820)' },
-  cyan:   { border: 'rgba(34,211,238,0.4)',  glow: 'rgba(34,211,238,0.12)',  tag: { bg: 'rgba(34,211,238,0.1)',  color: '#22D3EE', border: 'rgba(34,211,238,0.2)' }, btn: { bg: 'rgba(34,211,238,0.15)', color: '#22D3EE' }, thumb: 'linear-gradient(135deg,#061825,#0a1a2e)' },
-  pink:   { border: 'rgba(236,72,153,0.35)', glow: 'rgba(236,72,153,0.1)',  tag: { bg: 'rgba(236,72,153,0.1)',  color: '#EC4899', border: 'rgba(236,72,153,0.2)' }, btn: { bg: '#EC4899', color: '#fff' }, thumb: 'linear-gradient(135deg,#1a0818,#0e0515)' },
-  green:  { border: 'rgba(16,185,129,0.35)', glow: 'rgba(16,185,129,0.1)',  tag: { bg: 'rgba(16,185,129,0.1)',  color: '#10B981', border: 'rgba(16,185,129,0.2)' }, btn: { bg: '#10B981', color: '#fff' }, thumb: 'linear-gradient(135deg,#051a10,#081510)' },
-};
-
 function GameCard({ game }) {
-  const c = COLOR_MAP[game.color] || COLOR_MAP.purple;
   const isLive = game.status === 'live';
-  const canvasRef = useRef(null);
-  const animRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let t = 0;
-
-    function resize() {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    }
-    resize();
-
-    function draw() {
-      const W = canvas.width, H = canvas.height;
-      ctx.clearRect(0, 0, W, H);
-      ctx.fillStyle = '#0A0A14';
-      ctx.fillRect(0, 0, W, H);
-
-      if (game.color === 'purple') {
-        // Terrain waves
-        const layers = [
-          { amp: 18, freq: 0.013, speed: 0.3, y: 0.60, color: 'rgba(60,30,100,0.8)' },
-          { amp: 14, freq: 0.019, speed: 0.5, y: 0.72, color: 'rgba(90,45,150,0.7)' },
-          { amp: 10, freq: 0.028, speed: 0.9, y: 0.82, color: 'rgba(120,60,200,0.55)' },
-        ];
-        layers.forEach(l => {
-          ctx.beginPath();
-          ctx.moveTo(0, H);
-          for (let x = 0; x <= W; x += 2) {
-            const y = l.y * H + Math.sin(x * l.freq + t * l.speed) * l.amp + Math.sin(x * l.freq * 2 + t * l.speed * 1.4) * l.amp * 0.4;
-            ctx.lineTo(x, y);
-          }
-          ctx.lineTo(W, H); ctx.closePath();
-          ctx.fillStyle = l.color; ctx.fill();
-        });
-        // Glow line
-        const last = layers[2];
-        ctx.beginPath();
-        for (let x = 0; x <= W; x += 2) {
-          const y = last.y * H + Math.sin(x * last.freq + t * last.speed) * last.amp + Math.sin(x * last.freq * 2 + t * last.speed * 1.4) * last.amp * 0.4;
-          x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-        }
-        ctx.strokeStyle = 'rgba(167,139,250,0.6)'; ctx.lineWidth = 1.5; ctx.stroke();
-
-      } else if (game.color === 'cyan') {
-        // Grid + scan
-        const sq = 28;
-        ctx.strokeStyle = 'rgba(34,211,238,0.06)'; ctx.lineWidth = 0.5;
-        for (let x = 0; x < W; x += sq) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
-        for (let y = 0; y < H; y += sq) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
-        const scanY = (t * 40) % H;
-        const sg = ctx.createLinearGradient(0, scanY - 20, 0, scanY + 20);
-        sg.addColorStop(0, 'transparent'); sg.addColorStop(0.5, 'rgba(34,211,238,0.25)'); sg.addColorStop(1, 'transparent');
-        ctx.fillStyle = sg; ctx.fillRect(0, scanY - 20, W, 40);
-        for (let i = 0; i < 12; i++) {
-          const px = (i * W / 11); const py = H / 2 + Math.sin(t * 1.5 + i * 0.6) * 30;
-          ctx.beginPath(); ctx.arc(px, py, 2.5, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(34,211,238,${0.3 + 0.3 * Math.sin(t + i)})`; ctx.fill();
-        }
-
-      } else if (game.color === 'pink') {
-        // Particle burst
-        for (let i = 0; i < 20; i++) {
-          const angle = (i / 20) * Math.PI * 2 + t * 0.3;
-          const r = 30 + Math.sin(t * 2 + i) * 10;
-          const px = W / 2 + Math.cos(angle) * r; const py = H / 2 + Math.sin(angle) * r;
-          ctx.beginPath(); ctx.arc(px, py, 2, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(236,72,153,${0.3 + 0.4 * Math.sin(t * 1.5 + i)})`; ctx.fill();
-        }
-        ctx.beginPath(); ctx.arc(W / 2, H / 2, 8 + Math.sin(t * 2) * 2, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(236,72,153,0.5)'; ctx.fill();
-
-      } else {
-        // Green: flowing lines
-        for (let i = 0; i < 5; i++) {
-          ctx.beginPath();
-          for (let x = 0; x <= W; x += 4) {
-            const y = H * (0.3 + i * 0.12) + Math.sin(x * 0.02 + t * 0.8 + i) * 14;
-            x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-          }
-          ctx.strokeStyle = `rgba(16,185,129,${0.08 + i * 0.04})`; ctx.lineWidth = 1; ctx.stroke();
-        }
-      }
-
-      t += 0.016;
-      animRef.current = requestAnimationFrame(draw);
-    }
-
-    draw();
-    const ro = new ResizeObserver(resize);
-    ro.observe(canvas);
-    return () => { cancelAnimationFrame(animRef.current); ro.disconnect(); };
-  }, [game.color]);
 
   return (
     <a
@@ -124,7 +20,7 @@ function GameCard({ game }) {
       onMouseEnter={e => {
         if (!isLive) return;
         e.currentTarget.style.transform = 'translateY(-6px)';
-        e.currentTarget.style.borderColor = c.border;
+        e.currentTarget.style.borderColor = 'rgba(139,92,246,0.4)';
         e.currentTarget.style.boxShadow = `0 20px 60px rgba(0,0,0,0.5)`;
       }}
       onMouseLeave={e => {
@@ -135,7 +31,20 @@ function GameCard({ game }) {
     >
       {/* Thumbnail */}
       <div style={{ height: 180, position: 'relative' }}>
-        <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
+        {game.cover_url ? (
+          <img
+            src={game.cover_url}
+            alt={`${game.name} cover`}
+            style={{ width: '100%', height: '100%', display: 'block', objectFit: 'cover' }}
+          />
+        ) : (
+          <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg,#1a1030,#0d0820)' }} />
+        )}
+        {game.icon_url ? (
+          <div style={{ position: 'absolute', left: 14, bottom: 14, width: 44, height: 44, borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.25)', background: 'rgba(0,0,0,0.25)' }}>
+            <img src={game.icon_url} alt={`${game.name} icon`} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          </div>
+        ) : null}
         <span style={{
           position: 'absolute', top: 14, right: 14,
           fontSize: 10, fontWeight: 600, letterSpacing: '0.1em',
@@ -154,7 +63,7 @@ function GameCard({ game }) {
           {(game.tags || []).map(tag => (
             <span key={tag} style={{
               fontSize: 11, padding: '3px 9px', borderRadius: 999, fontWeight: 500,
-              background: c.tag.bg, color: c.tag.color, border: `1px solid ${c.tag.border}`
+              background: 'rgba(139,92,246,0.12)', color: '#A78BFA', border: '1px solid rgba(139,92,246,0.2)'
             }}>{tag}</span>
           ))}
         </div>
@@ -164,8 +73,7 @@ function GameCard({ game }) {
           <span style={{
             fontSize: 12, fontWeight: 600, padding: '8px 18px',
             borderRadius: 8, display: 'inline-flex', alignItems: 'center', gap: 6,
-            ...(isLive ? c.btn : { background: 'rgba(255,255,255,0.06)', color: 'var(--text3)' }),
-            border: game.color === 'cyan' ? `1px solid rgba(34,211,238,0.3)` : 'none',
+            ...(isLive ? { background: '#8B5CF6', color: '#fff' } : { background: 'rgba(255,255,255,0.06)', color: 'var(--text3)' }),
           }}>
             {isLive ? '进入游戏 →' : '敬请期待'}
           </span>

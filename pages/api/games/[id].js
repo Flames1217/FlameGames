@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   const { id } = req.query;
 
   if (req.method === 'PUT') {
-    const { name, description, url, tags, status, color, sort_order } = req.body;
+    const { name, description, url, tags, status, icon_url, cover_url, sort_order } = req.body;
     try {
       const result = await sql`
         UPDATE games SET
@@ -21,7 +21,8 @@ export default async function handler(req, res) {
           url         = COALESCE(${url}, url),
           tags        = COALESCE(${tags}, tags),
           status      = COALESCE(${status}, status),
-          color       = COALESCE(${color}, color),
+          icon_url    = COALESCE(${icon_url}, icon_url),
+          cover_url   = COALESCE(${cover_url}, cover_url),
           sort_order  = COALESCE(${sort_order}, sort_order)
         WHERE id = ${id}
         RETURNING *

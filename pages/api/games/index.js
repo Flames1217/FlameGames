@@ -19,12 +19,12 @@ export default async function handler(req, res) {
   }
 
   if (req.method === 'POST') {
-    const { slug, name, description, url, tags, status, color } = req.body;
+    const { slug, name, description, url, tags, status, icon_url, cover_url } = req.body;
     if (!name) return res.status(400).json({ error: '名称不能为空' });
     if (!slug) return res.status(400).json({ error: 'slug 不能为空' });
     try {
       const result = await sql`
-        INSERT INTO games (slug, name, description, url, tags, status, color, sort_order)
+        INSERT INTO games (slug, name, description, url, tags, status, icon_url, cover_url, sort_order)
         VALUES (
           ${slug},
           ${name},
@@ -32,7 +32,8 @@ export default async function handler(req, res) {
           ${url || ''},
           ${tags || []},
           ${status || 'live'},
-          ${color || 'purple'},
+          ${icon_url || ''},
+          ${cover_url || ''},
           (SELECT COALESCE(MAX(sort_order), 0) + 1 FROM games)
         )
         RETURNING *
