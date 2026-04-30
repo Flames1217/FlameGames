@@ -4,11 +4,11 @@ const nextConfig = {
     return [
       {
         source: '/drysland',
-        destination: 'https://drysland.vercel.app/',
+        destination: 'https://drysland-nu.vercel.app/',
       },
       {
         source: '/drysland/:path*',
-        destination: 'https://drysland.vercel.app/:path*',
+        destination: 'https://drysland-nu.vercel.app/:path*',
       },
       {
         source: '/wolfcha',
