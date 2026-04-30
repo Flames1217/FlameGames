@@ -1,4 +1,16 @@
 {
+  "redirects": [
+    {
+      "source": "/wolfcha",
+      "destination": "https://www.wolf-cha.com/",
+      "permanent": false
+    },
+    {
+      "source": "/wolfcha/:path*",
+      "destination": "https://www.wolf-cha.com/:path*",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/drysland",
@@ -7,14 +19,6 @@
     {
       "source": "/drysland/:path*",
       "destination": "https://drysland-nu.vercel.app/:path*"
-    },
-    {
-      "source": "/wolfcha",
-      "destination": "https://wolfcha.vercel.app/"
-    },
-    {
-      "source": "/wolfcha/:path*",
-      "destination": "https://wolfcha.vercel.app/:path*"
     }
   ]
 }

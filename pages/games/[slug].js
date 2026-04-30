@@ -6,8 +6,9 @@ export default function GamePage({ game }) {
   const router = useRouter();
   const [loaded, setLoaded] = useState(false);
   const gameUrl = (() => {
+    if (game?.slug === 'wolfcha') return 'https://www.wolf-cha.com/';
     // Force explicit index.html for proxied root paths so relative assets resolve under /<slug>/assets
-    if (game?.url && /^\/[a-z0-9-]+\/?$/i.test(game.url)) {
+    if (game?.slug === 'drysland' && game?.url && /^\/[a-z0-9-]+\/?$/i.test(game.url)) {
       const base = game.url.endsWith('/') ? game.url : `${game.url}/`;
       return `${base}index.html`;
     }
