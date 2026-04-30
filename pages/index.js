@@ -40,11 +40,6 @@ function GameCard({ game }) {
         ) : (
           <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg,#1a1030,#0d0820)' }} />
         )}
-        {game.icon_url ? (
-          <div style={{ position: 'absolute', left: 14, bottom: 14, width: 44, height: 44, borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.25)', background: 'rgba(0,0,0,0.25)' }}>
-            <img src={game.icon_url} alt={`${game.name} icon`} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-          </div>
-        ) : null}
         <span style={{
           position: 'absolute', top: 14, right: 14,
           fontSize: 10, fontWeight: 600, letterSpacing: '0.1em',
@@ -67,7 +62,14 @@ function GameCard({ game }) {
             }}>{tag}</span>
           ))}
         </div>
-        <div style={{ fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em' }}>{game.name}</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          {game.icon_url ? (
+            <div style={{ width: 34, height: 34, borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.22)', background: 'rgba(255,255,255,0.04)', flexShrink: 0 }}>
+              <img src={game.icon_url} alt={`${game.name} icon`} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+            </div>
+          ) : null}
+          <div style={{ fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em' }}>{game.name}</div>
+        </div>
         <p style={{ fontSize: 13, color: 'var(--text2)', lineHeight: 1.7, flex: 1 }}>{game.description}</p>
         <div style={{ marginTop: 6 }}>
           <span style={{
