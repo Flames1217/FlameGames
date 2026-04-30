@@ -4,12 +4,12 @@ const nextConfig = {
     return [
       {
         source: '/wolfcha',
-        destination: 'https://www.wolf-cha.com/',
+        destination: 'https://wolfcha-iota.vercel.app/',
         permanent: false,
       },
       {
         source: '/wolfcha/:path*',
-        destination: 'https://www.wolf-cha.com/:path*',
+        destination: 'https://wolfcha-iota.vercel.app/:path*',
         permanent: false,
       },
     ];

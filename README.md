@@ -29,7 +29,7 @@ FlameGames 是一个个人休闲游戏合集，目标是让用户随时随地打
 ## 四、域名与子路径
 - 主站：`games.viper3.top` 指向本项目。
 - 子路径跳转/反向代理：
-  - `/wolfcha` 和 `/wolfcha/*` 跳转到 `wolf-cha.com`
+  - `/wolfcha` 和 `/wolfcha/*` 跳转到 `wolfcha-iota.vercel.app`
   - `/drysland` 和 `/drysland/*` 代理到 `drysland-nu.vercel.app`
 
 > 当前仓库已包含 `vercel.json` 与 `next.config.js` 的 rewrite 配置。
