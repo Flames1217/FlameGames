@@ -5,6 +5,14 @@ import { useState } from 'react';
 export default function GamePage({ game }) {
   const router = useRouter();
   const [loaded, setLoaded] = useState(false);
+  const gameUrl = (() => {
+    // Force explicit index.html for proxied root paths so relative assets resolve under /<slug>/assets
+    if (game?.url && /^\/[a-z0-9-]+\/?$/i.test(game.url)) {
+      const base = game.url.endsWith('/') ? game.url : `${game.url}/`;
+      return `${base}index.html`;
+    }
+    return game?.url || '';
+  })();
 
   if (!game) {
     return (
@@ -60,7 +68,7 @@ export default function GamePage({ game }) {
         <div style={{ flex: 1 }} />
 
         <a
-          href={game.url}
+          href={gameUrl}
           target="_blank"
           rel="noreferrer"
           style={{
@@ -102,7 +110,7 @@ export default function GamePage({ game }) {
 
       {/* iframe */}
       <iframe
-        src={game.url}
+        src={gameUrl}
         onLoad={() => setLoaded(true)}
         style={{
           position: 'fixed',
