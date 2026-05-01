@@ -6,7 +6,7 @@ function GameCard({ game }) {
 
   return (
     <a
-      href={isLive ? `/games/${game.slug}` : undefined}
+      href={isLive ? `/${game.slug}` : undefined}
       target={undefined}
       rel="noreferrer"
       style={{
