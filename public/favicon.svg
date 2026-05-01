@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="FlameGames">
+  <defs>
+    <linearGradient id="flame" x1="18" y1="8" x2="46" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22D3EE"/>
+      <stop offset="0.45" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#EC4899"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="10" y1="7" x2="54" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#A78BFA"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#08080E"/>
+  <path
+    d="M33.7 7.5c2.4 9.4 12.6 12.2 12.6 25.5 0 10.7-6.9 19.2-16.1 19.2-8.3 0-14.5-6.3-14.5-14.9 0-7.9 4.8-12.2 9.1-17.1 1.8 4.1 4.1 6.2 7 7.7-2.4-8.1-1.2-14.9 1.9-20.4Z"
+    fill="url(#flame)"
+  />
+  <path
+    d="M29.8 51.9c-3.4 0-6.3-2.7-6.3-6.6 0-3.6 2.4-5.8 4.6-8.2.9 2.3 2.3 3.7 4.3 4.8-.8-4.2.1-7.5 1.8-10.9 3 4.1 6.3 6.6 6.3 12.2 0 5.3-4.3 8.7-10.7 8.7Z"
+    fill="#F0F0F8"
+    opacity="0.95"
+  />
+  <path
+    d="M20 44.7c-3.8 0-6.9 3.1-6.9 6.9 0 2.3 1.9 4.2 4.2 4.2h29.4c2.3 0 4.2-1.9 4.2-4.2 0-3.8-3.1-6.9-6.9-6.9H20Z"
+    fill="#13131F"
+    stroke="url(#glow)"
+    stroke-width="3"
+    stroke-linejoin="round"
+  />
+  <circle cx="24.4" cy="50.3" r="2.1" fill="#22D3EE"/>
+  <circle cx="39.6" cy="50.3" r="2.1" fill="#EC4899"/>
+  <path d="M30.1 50.3h3.8M32 48.4v3.8" stroke="#A78BFA" stroke-width="2.2" stroke-linecap="round"/>
+</svg>
