@@ -1,6 +1,17 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
+function BrandMark({ size = 28 }) {
+  return (
+    <img
+      src="/favicon.svg"
+      alt=""
+      aria-hidden="true"
+      style={{ width: size, height: size, display: 'block', flexShrink: 0 }}
+    />
+  );
+}
+
 function GameCard({ game }) {
   const isLive = game.status === 'live';
 
@@ -114,7 +125,8 @@ export default function Home({ initialGames }) {
       {/* Nav */}
       <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, padding: '16px 0', borderBottom: '1px solid var(--border)', background: 'rgba(8,8,14,0.85)', backdropFilter: 'blur(20px)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ fontSize: 17, fontWeight: 700, letterSpacing: '-0.03em' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 17, fontWeight: 700, letterSpacing: '-0.03em' }}>
+            <BrandMark size={28} />
             Flame<span style={{ color: 'var(--purple2)' }}>Games</span>
           </div>
           <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
@@ -176,7 +188,10 @@ export default function Home({ initialGames }) {
       {/* Footer */}
       <footer style={{ borderTop: '1px solid var(--border)', padding: '28px 0', position: 'relative', zIndex: 1 }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 28px', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-          <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--text2)' }}>Flame<span style={{ color: 'var(--purple2)' }}>Games</span></span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, fontWeight: 700, color: 'var(--text2)' }}>
+            <BrandMark size={24} />
+            <span>Flame<span style={{ color: 'var(--purple2)' }}>Games</span></span>
+          </span>
           <span style={{ fontSize: 12, color: 'var(--text3)' }}>games.viper3.top · 个人休闲游戏合集</span>
         </div>
       </footer>
