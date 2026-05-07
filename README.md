@@ -2,6 +2,9 @@
 
 FlameGames 是一个个人休闲游戏合集，目标是让用户随时随地打开浏览器就能玩。
 
+## 预览图
+![预览](./public/images/index.png)
+
 ## 项目技术栈
 - 前后端：Next.js 14
 - 数据库：Neon PostgreSQL
