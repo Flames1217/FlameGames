@@ -1,5 +1,4 @@
 import { sql } from '../../../lib/db';
-import { mergeGames } from '../../../lib/defaultGames';
 
 function checkAuth(req) {
   return req.headers['x-admin-password'] === process.env.ADMIN_PASSWORD;
@@ -9,10 +8,9 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
       const games = await sql`SELECT * FROM games ORDER BY sort_order ASC, id ASC`;
-      return res.status(200).json(req.query.source === 'db' ? games : mergeGames(games));
+      return res.status(200).json(games);
     } catch (e) {
-      if (req.query.source === 'db') return res.status(500).json({ error: e.message });
-      return res.status(200).json(mergeGames());
+      return res.status(500).json({ error: e.message });
     }
   }
 

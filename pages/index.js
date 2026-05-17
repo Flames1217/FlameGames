@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import { mergeGames } from '../lib/defaultGames';
 
 function BrandMark({ size = 28 }) {
   return (
@@ -204,8 +203,8 @@ export async function getServerSideProps() {
   try {
     const { sql } = await import('../lib/db');
     const games = await sql`SELECT * FROM games ORDER BY sort_order ASC, id ASC`;
-    return { props: { initialGames: JSON.parse(JSON.stringify(mergeGames(games))) } };
+    return { props: { initialGames: JSON.parse(JSON.stringify(games)) } };
   } catch {
-    return { props: { initialGames: mergeGames() } };
+    return { props: { initialGames: [] } };
   }
 }

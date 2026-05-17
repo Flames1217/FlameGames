@@ -1,12 +1,15 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { findGameBySlug } from '../lib/defaultGames';
 
 export default function GamePage({ game }) {
   const router = useRouter();
   const [loaded, setLoaded] = useState(false);
-  const gameUrl = game?.url || '';
+  const gameUrl = (() => {
+    if (game?.slug === 'wolfcha') return 'https://wolfcha-iota.vercel.app/';
+    if (game?.slug === 'drysland') return 'https://drysland-nu.vercel.app/';
+    return game?.url || '';
+  })();
 
   if (!game) {
     return (
@@ -128,10 +131,9 @@ export async function getServerSideProps({ params }) {
   try {
     const { sql } = await import('../lib/db');
     const rows = await sql`SELECT * FROM games WHERE slug = ${params.slug} LIMIT 1`;
-    const game = findGameBySlug(rows, params.slug);
-    if (!game) return { props: { game: null } };
-    return { props: { game: JSON.parse(JSON.stringify(game)) } };
+    if (!rows.length) return { props: { game: null } };
+    return { props: { game: JSON.parse(JSON.stringify(rows[0])) } };
   } catch {
-    return { props: { game: findGameBySlug([], params.slug) } };
+    return { props: { game: null } };
   }
 }
