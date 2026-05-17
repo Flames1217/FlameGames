@@ -185,7 +185,7 @@ export default function Admin() {
 
   async function loadGames() {
     setFetching(true);
-    const res = await fetch('/api/games');
+    const res = await fetch('/api/games?source=db');
     if (res.ok) setGames(await res.json());
     setFetching(false);
   }
