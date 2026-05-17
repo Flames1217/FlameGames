@@ -26,7 +26,7 @@ const inputStyle = {
   width: '100%', padding: '10px 14px',
   background: 'var(--bg3)', border: '1px solid var(--border)',
   borderRadius: 8, color: 'var(--text)', fontSize: 14,
-  fontFamily: 'Sora, sans-serif', outline: 'none',
+  fontFamily: 'var(--font-sans)', outline: 'none',
   transition: 'border-color 0.2s',
 };
 
@@ -92,9 +92,9 @@ function GameForm({ initial = EMPTY_FORM, onSave, onCancel, loading }) {
         </Field>
       </div>
       <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
-        <button onClick={onCancel} style={{ padding: '9px 20px', background: 'transparent', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--text2)', fontSize: 13, cursor: 'pointer', fontFamily: 'Sora,sans-serif' }}>取消</button>
+        <button onClick={onCancel} style={{ padding: '9px 20px', background: 'transparent', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--text2)', fontSize: 13, cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>取消</button>
         <button onClick={() => onSave({ ...form, tags: form.tags.split(',').map(t => t.trim()).filter(Boolean) })}
-          disabled={loading} style={{ padding: '9px 20px', background: 'var(--purple)', border: 'none', borderRadius: 8, color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'Sora,sans-serif', opacity: loading ? 0.6 : 1 }}>
+          disabled={loading} style={{ padding: '9px 20px', background: 'var(--purple)', border: 'none', borderRadius: 8, color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'var(--font-sans)', opacity: loading ? 0.6 : 1 }}>
           {loading ? '保存中...' : '保存'}
         </button>
       </div>
@@ -154,7 +154,7 @@ const iconBtn = {
   width: 30, height: 30, borderRadius: 7, background: 'transparent',
   border: '1px solid var(--border)', color: 'var(--text2)',
   fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-  fontFamily: 'Sora,sans-serif', transition: 'background 0.15s, border-color 0.15s',
+  fontFamily: 'var(--font-sans)', transition: 'background 0.15s, border-color 0.15s',
 };
 
 /* ── Main Admin Page ── */
@@ -232,7 +232,7 @@ export default function Admin() {
     return (
       <>
         <Head><title>Admin — FlameGames</title></Head>
-        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)', fontFamily: 'Sora,sans-serif' }}>
+        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)', fontFamily: 'var(--font-sans)' }}>
           <div style={{ width: 360, background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 20, padding: 40 }}>
             <div style={{ textAlign: 'center', marginBottom: 32 }}>
               <div style={{ fontSize: 28, fontWeight: 800, marginBottom: 6 }}>Flame<span style={{ color: 'var(--purple2)' }}>Games</span></div>
@@ -245,7 +245,7 @@ export default function Admin() {
                 placeholder="输入密码" autoFocus />
             </Field>
             {authError && <div style={{ fontSize: 12, color: '#EF4444', marginBottom: 12 }}>{authError}</div>}
-            <button onClick={login} disabled={authLoading} style={{ width: '100%', padding: '11px 0', background: 'var(--purple)', border: 'none', borderRadius: 10, color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'Sora,sans-serif', opacity: authLoading ? 0.7 : 1 }}>
+            <button onClick={login} disabled={authLoading} style={{ width: '100%', padding: '11px 0', background: 'var(--purple)', border: 'none', borderRadius: 10, color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'var(--font-sans)', opacity: authLoading ? 0.7 : 1 }}>
               {authLoading ? '验证中...' : '登录 →'}
             </button>
           </div>
@@ -260,7 +260,7 @@ export default function Admin() {
   return (
     <>
       <Head><title>Admin — FlameGames</title></Head>
-      <div style={{ minHeight: '100vh', background: 'var(--bg)', fontFamily: 'Sora,sans-serif' }}>
+      <div style={{ minHeight: '100vh', background: 'var(--bg)', fontFamily: 'var(--font-sans)' }}>
 
         {/* Toast */}
         {toast && (
@@ -284,7 +284,7 @@ export default function Admin() {
             <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
               <a href="/" target="_blank" style={{ fontSize: 12, color: 'var(--text3)', textDecoration: 'none' }}>查看前端 ↗</a>
               <button onClick={() => { sessionStorage.removeItem('admpw'); setAuthed(false); setPassword(''); }}
-                style={{ fontSize: 12, padding: '6px 14px', background: 'transparent', border: '1px solid var(--border)', borderRadius: 7, color: 'var(--text3)', cursor: 'pointer', fontFamily: 'Sora,sans-serif' }}>退出登录</button>
+                style={{ fontSize: 12, padding: '6px 14px', background: 'transparent', border: '1px solid var(--border)', borderRadius: 7, color: 'var(--text3)', cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>退出登录</button>
             </div>
           </div>
         </div>
@@ -308,7 +308,7 @@ export default function Admin() {
           {/* Games list header */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
             <h2 style={{ fontSize: 16, fontWeight: 700 }}>游戏列表</h2>
-            <button onClick={() => setModal('add')} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 16px', background: 'var(--purple)', border: 'none', borderRadius: 8, color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'Sora,sans-serif' }}>
+            <button onClick={() => setModal('add')} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 16px', background: 'var(--purple)', border: 'none', borderRadius: 8, color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>
               + 添加游戏
             </button>
           </div>

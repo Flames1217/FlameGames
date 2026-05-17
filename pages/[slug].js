@@ -13,7 +13,7 @@ export default function GamePage({ game }) {
 
   if (!game) {
     return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#08080E', color: '#fff', fontFamily: 'Sora, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#08080E', color: '#fff', fontFamily: 'var(--font-sans)' }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: 48, marginBottom: 16 }}>404</div>
           <div style={{ color: '#666', marginBottom: 24 }}>游戏不存在或已下线</div>
@@ -51,14 +51,14 @@ export default function GamePage({ game }) {
             cursor: 'pointer',
             padding: '4px 12px',
             fontSize: 12,
-            fontFamily: 'Sora, sans-serif',
+            fontFamily: 'var(--font-sans)',
             display: 'flex', alignItems: 'center', gap: 6,
           }}
         >
           ← 返回
         </button>
 
-        <span style={{ fontSize: 13, fontWeight: 600, color: '#fff', fontFamily: 'Sora, sans-serif' }}>
+        <span style={{ fontSize: 13, fontWeight: 600, color: '#fff', fontFamily: 'var(--font-sans)' }}>
           {game.name}
         </span>
 
@@ -76,7 +76,7 @@ export default function GamePage({ game }) {
             textDecoration: 'none',
             padding: '4px 12px',
             fontSize: 12,
-            fontFamily: 'Sora, sans-serif',
+            fontFamily: 'var(--font-sans)',
           }}
         >
           新窗口打开 ↗
@@ -98,7 +98,7 @@ export default function GamePage({ game }) {
             borderTopColor: '#8B5CF6',
             animation: 'spin 0.8s linear infinite',
           }} />
-          <span style={{ fontSize: 13, color: '#666', fontFamily: 'Sora, sans-serif' }}>
+          <span style={{ fontSize: 13, color: '#666', fontFamily: 'var(--font-sans)' }}>
             正在加载 {game.name}...
           </span>
           <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
