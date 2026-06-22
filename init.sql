@@ -40,4 +40,15 @@ INSERT INTO games (slug, name, description, url, icon_url, cover_url, tags, stat
   ARRAY['AI', 'Next.js', '策略'],
   'live',
   2
+),
+(
+  'fight-the-landlord',
+  '斗地主',
+  '',
+  'https://doudizhu.viper3.top/',
+  '',
+  '',
+  ARRAY[]::TEXT[],
+  'live',
+  3
 );
