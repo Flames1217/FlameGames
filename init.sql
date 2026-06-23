@@ -51,4 +51,15 @@ INSERT INTO games (slug, name, description, url, icon_url, cover_url, tags, stat
   ARRAY[]::TEXT[],
   'live',
   3
+),
+(
+  'xiantu',
+  '仙途',
+  '',
+  'https://xiantu.viper3.top/',
+  'https://img.viper3.top/FlameGames/xiantu-favicon.png',
+  'https://img.viper3.top/FlameGames/xiantu-cover.png',
+  ARRAY['修仙', '文字冒险', 'AI剧情', '联机'],
+  'live',
+  7
 );
